@@ -2,6 +2,15 @@ import time
 import random
 from pynput.keyboard import Controller
 
+
+def respawn_pets(kb):
+    kb.press('r')
+    key_hold_time = random.uniform(0.01, 0.05)
+    time.sleep(key_hold_time)
+    kb.release('r')
+    return
+
+
 if __name__ == '__main__':
     keyboard = Controller()
 
@@ -16,10 +25,11 @@ if __name__ == '__main__':
     }
 
     while True:
+        respawn_pets(keyboard)
         key_to_press = key_dict[random.randint(0, 3)]
         keyboard.press(key_to_press)
 
-        hold_time = random.uniform(0.1, 0.5)
+        hold_time = random.uniform(0.01, 0.05)
         print(f'Holding \'{key_to_press}\' for {hold_time}s')
         time.sleep(hold_time)
 
