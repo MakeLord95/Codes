@@ -1,21 +1,33 @@
 import time
 import filefifo
 
+
+def scale(x):
+    y = 2 * x - 46000
+    y = max(y, 0)
+    y = min(y, 65536)
+    return y
+
+
 buffer = filefifo.Filefifo('samplecapture03.txt')
 
 fs = 75
-is_peak = False
+peak_candidate = False
 previous_signal = 0
-
+peaks = []
 while True:
-    current_signal = buffer.get()
+    current_signal = scale(buffer.get())
+
+    if current_signal < 0:
+        print("End of file!")
+        break
 
     if current_signal > previous_signal:
-        is_peak = True
+        peak_candidate = True
 
-    if is_peak and current_signal < previous_signal:
-        print(f"Peak: {previous_signal}")
-        is_peak = False
+    elif peak_candidate and current_signal < previous_signal:
+        peaks.append(previous_signal)
+        peak_candidate = False
 
     previous_signal = current_signal
 
