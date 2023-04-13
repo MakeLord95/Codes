@@ -1,7 +1,9 @@
 import random
 
+
 def count_array(arr, nbr):
     return arr.count(nbr)
+
 
 array = []
 

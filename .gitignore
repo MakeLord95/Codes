@@ -136,3 +136,6 @@ README.md
 /Python/matrix.txt
 *.txt
 /*/*.txt
+!/MicroPython/samplecapture01.txt
+!/MicroPython/samplecapture02.txt
+!/MicroPython/samplecapture03.txt
